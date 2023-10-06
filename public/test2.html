@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Array Input Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input v-model="mataKuliah" placeholder="Mata Kuliah">
+    <input v-model.number="nilai" placeholder="Nilai">
+    <input v-model="nama" placeholder="Nama">
+    <button @click="addItem">Add Item</button>
+    <button @click="calculateMean">Calculate Mean</button>
+    <table> 
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Mata Kuliah</th>
+          <th>Nilai</th>
+          <th>Nama</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in items" :key="index">
+          <td>{{ index + 1 }}</td>
+          <td>{{ item.mataKuliah }}</td>
+          <td>{{ item.nilai }}</td>
+          <td>{{ item.nama }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p v-if="mean">Mean Nilai: {{ mean.toFixed(2) }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        mataKuliah: "",
+        nilai: 0,
+        nama: "",
+        items: [],
+        mean: null
+      },
+      methods: {
+        addItem() {
+          if (this.mataKuliah.trim() !== "" && this.nama.trim() !== "") {
+            this.items.push({ mataKuliah: this.mataKuliah, nilai: this.nilai, nama: this.nama });
+            this.mataKuliah = ""; // Clear the input field after adding an item
+            this.nilai = 0;
+            this.nama = "";
+          }
+        },
+        calculateMean() {
+          if (this.items.length === 0) {
+            this.mean = null;
+            return;
+          }
+          const sum = this.items.reduce((acc, item) => acc + parseFloat(item.nilai), 0);
+          this.mean = sum / this.items.length;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

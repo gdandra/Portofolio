@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Statistika</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body class="bg-gray-800 text-gray-500">
+    <header class="sticky bg-gray-950 py-5 z-10 "> <!--Header-->
+    <nav class=" w-9/12 flex flex-row mx-auto">
+            <div class="uppercase text-lg basis-1/4"> <!--Logo-->
+                   <a href="#Hero">
+                    <span class="font-extrabold text-white">Gede</span>
+                    <span class="font-extralight text-blue-300">Andra</span>
+                   </a> 
+            </div>
+            <div class="basis-1/2 flex items-center justify-evenly"> <!--Link-->
+                <a href="./index.html"><span>Home</span></a>
+                <a href="./about.html#about"><span>About</span></a>
+                <a href="./index.html#project"><span>Project</span></a>
+                <a href="#contact"><span>Contact</span></a>
+            </div>
+    </nav>
+    </header>
+
+    <main class="relative py-10">
+      <div id="app" class="bg-gray1-950 ">
+        <div>
+          
+          <div class="border border-black my-2 grid grid-cols-2"> <!--Untuk Section Inputing data-->
+            <div class="text-white"> <!--Form-->
+              <form action="">
+                <label for="Nama" class="">Nama :</label> <br>
+                <input type="text" name="Nama" id="Nama" class="border border-black w-full bg-cyan-950" v-model="nama" >
+                <label for="Mata Kuliah">Mata Kuliah :</label> <br>
+                <input type="text" name="Mata Kuliah" id="Mata Kuliah" class="border border-black w-full bg-cyan-950" v-model="mata_kuliah">
+                <label for="Nilai">Nilai :</label> <br>
+                <input type="number" name="Nilai" id="Nilai" min="0" max="100" class="border border-black w-full bg-cyan-950" v-model="nilai">
+              </form>
+            </div>
+            <div class="flex items-center justify-center"><!--Button-->
+              <div class="px-3">
+                <!-- <button class="border border-blue-200 rounded-lg px-3 bg-cyan-950 text-white">Frequency</button> -->
+              </div>
+              <div class="px-3">
+                <button @click="CalcMean" class="border border-blue-200 rounded-lg px-3 bg-cyan-950 text-white">Mean</button>
+              </div>
+              
+            </div>
+          </div> <!--Input Div End-->
+    
+          <div class="flex items-center justify-center bg-cyan-950"> <!--Submit Button-->
+            <button @click="addItem" class="border border-blue-200 rounded-lg px-3 bg-gray2-950 text-white hover:bg-white hover:text-black text-bold
+            ">Input</button>
+          </div> <!--Submit Button End-->
+
+          <div class=" my-2 py-10"> <!--Untuk Section Output Data-->
+            <div class="flex flex-row justify-center">
+              <table class="bg-cyan-950 rounded-md text-white">
+                <thead>
+                  <tr>
+                    <th class="px-10 border border-white">ID</th>
+                    <th class="px-10 border border-white">Nama</th>
+                    <th class="px-10 border border-white">Mata Kuliah</th>
+                    <th class="px-10 border border-white">Nilai</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, index) in items" :key="index">
+                    <td class="border border-white">{{index+1}}</td>
+                    <td class="border border-white">{{item.nama}}</td>
+                    <td class="border border-white">{{item.mata_kuliah}}</td>
+                    <td class="border border-white">{{item.nilai}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p v-if="mean" class="text-white font-bold text-xl">Nilai rata-rata : {{mean.toFixed(2)}}</p>
+    
+          </div>
+        </div>
+      </div>
+    </main>
+
+
+    <footer id="footer" class="bg-gray-950 pb-20 pt-10 lg:pt-24">
+      <div class="container">
+        <div class="flex flex-wrap">
+          <div class="mb-10 w-full px-4 font-medium text-slate-300 md:w-1/3">
+            <h1 class="mb-5 text-4xl font-bold text-white">Gede Andra</h1>
+            <h2 class="mb-2 text-2xl font-bold">Programmer</h2>
+            <p>gedeandrarizqywijaya@gmail.com</p>
+            <p>Jl. Kakatua No.17 Kaliuntu</p>
+            <p>Singaraja - Bali</p>
+          </div>
+
+          <div class="mb-10 w-full px-4 float-right md:w-1/3">
+            <h3 class="mb-5 text-xl font-semibold text-white">Tautan</h3>
+            <ul class="text-slate-300">
+              <li><a class="mb-3 inline-block text-base hover:text-blue-300" href="./index.html"><span>Home</span></a></li>
+              <li><a class="mb-3 inline-block text-base hover:text-blue-300" href="./about.html#about"><span>About</span></a></li>
+              <li><a class="mb-3 inline-block text-base hover:text-blue-300" href="./index.html#project"><span>Project</span></a></li>
+              <li><a class="mb-3 inline-block text-base hover:text-blue-300" href=""><span>Contact</span></a></li>
+            </ul>
+          </div>
+        </div>
+  
+        <div class="w-full border-t border-slate-700 pt-10">
+          <div class="mb-5 flex items-center justify-center">
+              <li><a class="mr-3 flex h-10 w-10 items-center justify-center rounded-full  border-slate-300 text-white transition duration-300 hover:border-blue-300 hover:bg-blue-300" href="https://www.instagram.com/gdand_ra/" target="_blank"><img class="w-6 h-6" src="img/Instagram.svg" alt="Instagram"></a></li>
+              <li><a class="mr-3 flex h-10 w-10 items-center justify-center rounded-full  border-slate-300 text-white transition duration-300 hover:border-blue-300 hover:bg-blue-300" href="https://github.com/gdandra" target="_blank"><img class="w-6 h-6" src="img/Github.svg" alt="Github"></a></li>
+              <li><a class="mr-3 flex h-10 w-10 items-center justify-center rounded-full  border-slate-300 text-white transition duration-300 hover:border-blue-300 hover:bg-blue-300" href="https://www.linkedin.com/in/gede-andra-rizqy-wijaya-06b63a283/" target="_blank"><img class="w-6 h-6" src="img/Linkedin.svg" alt="LinkedIn"></a></li>
+          </div>
+          <p class="text-center text-sm font-medium text-slate-300">
+            Created by
+            <a href="https://www.instagram.com/gdand_ra/" target="_blank"
+              class="font-bold text-blue-300">gdand_ra</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  
+
+
+
+
+</body>
+
+<script setup>
+  new Vue({
+    el : '#app',
+    data : {
+      mata_kuliah: "",
+      nama: "",
+      nilai:0,
+      items:[],
+      mean: null
+    },
+    methods: {
+      addItem(){
+        if(this.mata_kuliah.trim() !== "" && this.nama.trim() !==""){
+          this.items.push(
+            {mata_kuliah: this.mata_kuliah,
+             nilai: this.nilai,
+             nama: this.nama
+            });
+          this.mata_kuliah = "";
+          this.nama = "";
+          this.nilai =0;
+          
+        }
+      },
+      itemFrequency(item){
+        return this.items.filters(x => x === item).length;
+      },
+      CalcMean(){
+        if(this.items.length === 0){
+          this.mean = null;
+          return;
+        }
+        const sum = this.items.reduce((acc, item) => acc + parseFloat(item.nilai), 0);
+        this.mean = sum / this.items.length;
+      }
+    },
+  })
+
+</script>
+
+</html>

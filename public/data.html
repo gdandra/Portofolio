@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue.js Array Input Example</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <input v-model="newItem" @keyup.enter="addItem" placeholder="Enter an item">
+    <button @click="addItem">Add Item</button>
+    <button @click="calculateMean">Calculate Mean</button>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Item</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in items" :key="index">
+          <td>{{ index + 1 }}</td>
+          <td>{{ item }}</td>
+          <td>{{ getItemFrequency(item) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <p v-if="mean">Mean: {{ mean }}</p>
+  </div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        newItem: "",
+        items: [],
+        mean: null  
+      },
+      methods: {
+        addItem() {
+          if (this.newItem.trim() !== "") {
+            this.items.push(this.newItem);
+            this.newItem = ""; // Clear the input field after adding an item
+          }
+        },
+        getItemFrequency(item) {
+          return this.items.filter(x => x === item).length;
+        },
+        calculateMean() {
+          if (this.items.length === 0) {
+            this.mean = null;
+            return;
+          }
+          const sum = this.items.reduce((acc, item) => acc + parseFloat(item), 0);
+          this.mean = sum / this.items.length;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
